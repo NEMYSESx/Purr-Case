@@ -1,0 +1,6 @@
+so the tree is like this
+
+reviews inside which reviewGrid is there and inside which reviewColumn is there and inside which review is there
+
+
+we putted animations styles as inline css rather than taiwindcss utility classes as its value is dynamic and it changes
