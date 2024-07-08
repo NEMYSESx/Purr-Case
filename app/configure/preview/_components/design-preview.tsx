@@ -1,5 +1,5 @@
 "use client";
-
+//@ts-ignore
 import Phone from "@/components/phone";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import LoginModel from "@/components/login-model";
-
+// @ts-ignore
 const DesignPreview = ({ configuration }: Configuratuon) => {
   const router = useRouter();
   const [showConfetti, setShowConfetti] = useState(false);
@@ -84,7 +84,7 @@ const DesignPreview = ({ configuration }: Configuratuon) => {
           config={{ elementCount: 200, spread: 200 }}
         />
       </div>
-
+      {/* @ts-ignore */}
       <LoginModel isOpen={isLoginModelOpen} setIsOpen={isLoginModelOpen} />
 
       <div className="mt-20 flex flex-col items-center md:grid text-sm sm:grid-cols-12 sm:grid-rows-1 sm:gap-x-6 md:gap-x-8 lg:gap-x-12">

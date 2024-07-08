@@ -20,7 +20,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatPrice } from "@/lib/utils";
-import { Progress } from "@radix-ui/react-progress";
+import { Progress } from "@/components/ui/progress";
 import StatusDropdown from "./_component/status-dropdown";
 
 const DashBoard = async () => {
@@ -32,7 +32,7 @@ const DashBoard = async () => {
     return notFound();
   }
 
-  const orders = db.order.findMany({
+  const orders = await db.order.findMany({
     where: {
       isPaid: true,
       createdAt: {
@@ -47,6 +47,8 @@ const DashBoard = async () => {
       shippingAddress: true,
     },
   });
+
+  console.log(orders);
 
   const lastWeekSum = await db.order.aggregate({
     where: {

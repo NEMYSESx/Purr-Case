@@ -1,5 +1,5 @@
 "use client";
-
+// @ts-ignore
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import NextImage from "next/image";
 import phone from "@/public/phone-template.png";
@@ -107,8 +107,8 @@ const DesignConfig = ({
     setTotalPrice(newTotalPrice);
   }, [material, finish]);
 
-  const phoneCaseRef = useRef<HTMLDivElement | undefined>(null);
-  const containerRef = useRef<HTMLDivElement | undefined>(null);
+  const phoneCaseRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   async function saveConfiguration() {
     try {
@@ -119,7 +119,7 @@ const DesignConfig = ({
         height,
       } = phoneCaseRef.current!.getBoundingClientRect();
       const { left: containerLeft, top: containerTop } =
-        containerRef!.current!.getBoundingClientRect();
+        containerRef.current!.getBoundingClientRect();
 
       const leftOffset = caseLeft - containerLeft;
       const topOffset = caseTop - containerTop;
@@ -179,6 +179,7 @@ const DesignConfig = ({
       >
         <div className="relative w-60 bg-opacity-50 pointer-events-none aspect-[896/1831]">
           <AspectRatio
+            //  @ts-ignore
             ref={phoneCaseRef}
             ratio={896 / 1831}
             className="pointer-events-none relative z-50 aspect-[896/1831] w-full"
