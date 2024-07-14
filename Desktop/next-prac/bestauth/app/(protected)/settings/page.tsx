@@ -53,7 +53,8 @@ const Settings = () => {
   });
   const onSubmit = (values: z.infer<typeof SettingSchema>) => {
     startTransition(() => {
-      console.log(values.role);
+      console.log(user?.isOAuth);
+
       settings(values)
         .then((data) => {
           if (data.error) {

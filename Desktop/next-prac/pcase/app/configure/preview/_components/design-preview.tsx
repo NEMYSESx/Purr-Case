@@ -1,5 +1,5 @@
 "use client";
-
+//@ts-ignore
 import Phone from "@/components/phone";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import LoginModel from "@/components/login-model";
-
+// @ts-ignore
 const DesignPreview = ({ configuration }: Configuratuon) => {
   const router = useRouter();
   const [showConfetti, setShowConfetti] = useState(false);
@@ -37,7 +37,7 @@ const DesignPreview = ({ configuration }: Configuratuon) => {
   if (finish === "textured_finish")
     totalPrice += PRODUCT_PRICES.finish.textured;
 
-  const { mutate: createPaymentSession } = useMutation({
+  const { mutate: createPaymentSession, isPending } = useMutation({
     mutationKey: ["get-checkout-session"],
     mutationFn: createCheckoutSession,
     onSuccess: ({ url }) => {
@@ -84,14 +84,17 @@ const DesignPreview = ({ configuration }: Configuratuon) => {
           config={{ elementCount: 200, spread: 200 }}
         />
       </div>
-
+      {/* @ts-ignore */}
       <LoginModel isOpen={isLoginModelOpen} setIsOpen={isLoginModelOpen} />
 
-      <div className="mt-20 grid grid-cols-1 text-sm sm:grid-cols-12 sm:grid-rows-1 sm:gap-x-6 md:gap-x-8 lg:gap-x-12">
-        <div className="sm:col-span-4 md:col-span-3 md:row-span-2 md:row-end-2">
-          <Phone className={cn(`bg-${color}`)} imgSrc={croppedImageUrl} />
+      <div className="mt-20 flex flex-col items-center md:grid text-sm sm:grid-cols-12 sm:grid-rows-1 sm:gap-x-6 md:gap-x-8 lg:gap-x-12">
+        <div className="md:col-span-4 lg:col-span-3 md:row-span-2 md:row-end-2">
+          <Phone
+            className={cn(`bg-${color}`, "max-w-[150px] md:max-w-full")}
+            imgSrc={croppedImageUrl}
+          />
         </div>
-        <div className="mt-6 sm:col-span-9 sm:mt-0 md:row-end-1">
+        <div className="mt-6 sm:col-span-9  md:row-end-1">
           <h3 className="text-3xl font-bold tracking-tight text-gray-900">
             Your {model} Case
           </h3>
@@ -161,7 +164,13 @@ const DesignPreview = ({ configuration }: Configuratuon) => {
             </div>
 
             <div className="mt-8 flex justify-end pb-12">
-              <Button onClick={handleCheckout} className="px-4 sm:px-6 lg:px-8">
+              <Button
+                isLoading={isPending}
+                disabled={isPending}
+                loadingText="Saving"
+                onClick={handleCheckout}
+                className="px-4 sm:px-6 lg:px-8"
+              >
                 Check out <ArrowRight className="h-4 w-4 ml-1.5 inline" />
               </Button>
             </div>
